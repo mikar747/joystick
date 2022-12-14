@@ -21,16 +21,30 @@ WSJoyStick.onKey(KEY.C, function () {
 })
 WSJoyStick.JoyStickInit()
 basic.forever(function () {
-    if (WSJoyStick.Listen_Dir(DIR.U)) {
-        basic.showArrow(ArrowNames.North)
-    }
-    if (WSJoyStick.Listen_Dir(DIR.D)) {
-        basic.showArrow(ArrowNames.South)
-    }
-    if (WSJoyStick.Listen_Dir(DIR.L)) {
-        basic.showArrow(ArrowNames.West)
-    }
-    if (WSJoyStick.Listen_Dir(DIR.R)) {
-        basic.showArrow(ArrowNames.East)
+    if (WSJoyStick.Listen_Dir(DIR.NONE)) {
+        basic.clearScreen()
+        MotorDriver.MotorStop(Motor.A)
+        MotorDriver.MotorStop(Motor.B)
+    } else {
+        if (WSJoyStick.Listen_Dir(DIR.U)) {
+            basic.showArrow(ArrowNames.North)
+            MotorDriver.MotorRun(Motor.A, Dir.forward, 10)
+            MotorDriver.MotorRun(Motor.B, Dir.forward, 10)
+        }
+        if (WSJoyStick.Listen_Dir(DIR.D)) {
+            basic.showArrow(ArrowNames.South)
+            MotorDriver.MotorRun(Motor.A, Dir.backward, 10)
+            MotorDriver.MotorRun(Motor.B, Dir.backward, 10)
+        }
+        if (WSJoyStick.Listen_Dir(DIR.L)) {
+            basic.showArrow(ArrowNames.West)
+            MotorDriver.MotorRun(Motor.A, Dir.forward, 10)
+            MotorDriver.MotorRun(Motor.B, Dir.backward, 10)
+        }
+        if (WSJoyStick.Listen_Dir(DIR.R)) {
+            basic.showArrow(ArrowNames.East)
+            MotorDriver.MotorRun(Motor.A, Dir.backward, 10)
+            MotorDriver.MotorRun(Motor.B, Dir.forward, 10)
+        }
     }
 })
